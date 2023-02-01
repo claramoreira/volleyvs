@@ -23,6 +23,7 @@
                           <MenuItem mnemonicParsing="false" text="Close" />
                         </items>
                       </Menu>
+                        <Menu mnemonicParsing="false" text="Team" />
                       <Menu mnemonicParsing="false" text="About">
                         <items>
                           <MenuItem mnemonicParsing="false" text="About" />
