@@ -36,7 +36,6 @@ public class TeamListController implements Initializable {
 	private TableColumn<Player, String> tableColumnCondition;
 
 	private ObservableList<Player> obsList;
-
 	
 	public void setPlayerService(PlayerService service) {
 		this.service = service;
@@ -67,4 +66,8 @@ public class TeamListController implements Initializable {
 		tableViewPlayer.setItems(obsList);
 	}
 
+	public void onTableColumnIdAction() {
+		System.out.println("click");
+	}
+	
 }
