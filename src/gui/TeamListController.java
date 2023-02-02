@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -8,10 +9,16 @@ import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Player;
 import service.PlayerService;
@@ -66,8 +73,32 @@ public class TeamListController implements Initializable {
 		tableViewPlayer.setItems(obsList);
 	}
 
-	public void onTableColumnIdAction() {
-		System.out.println("click");
+	public void onTableColumnIdAction(MouseEvent event) {
+		Player selectedPlayer = tableViewPlayer.getSelectionModel().getSelectedItem();
+		Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		createDialogForm(selectedPlayer, "/gui/PlayerView.fxml", parentStage);
+	}
+		
+	
+	private void createDialogForm(Player obj, String absoluteName, Stage parentStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+
+			PlayerViewController controller = loader.getController();
+			controller.loadPlayerInfo(obj);
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Player Details");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
