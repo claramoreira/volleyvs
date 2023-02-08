@@ -15,6 +15,10 @@ public class Player {
 	private Position position;
 
 	private Double height;
+	
+	private Double attackHeight;
+	
+	private Double blockHeight;
 
 	private Double serverPower;
 
@@ -24,19 +28,23 @@ public class Player {
 
 	private Double receptionPower;
 
-	private Double avgAttacksPointsByMatch;
+	private Double avgServerPointsPerMatch;
+	
+	private Double avgAttackPointsPerMatch;
 
-	private Double avgBlockPointsByMatch;
+	private Double avgBlockPointsPerMatch;
 
-	private Double avgServerPointsByMatch;
+	private Double avgReceptionsPerMatch;
 
 	public Player() {
 
 	}
 
+
 	public Player(Long id, String name, Integer overall, Condition condition, Position position, Double height,
-			Double serverPower, Double attackPower, Double blockPower, Double receptionPower,
-			Double avgAttacksPointsByMatch, Double avgBlockPointsByMatch, Double avgServerPointsByMatch) {
+			Double attackHeight, Double blockHeight, Double serverPower, Double attackPower, Double blockPower,
+			Double receptionPower, Double avgServerPointsPerMatch, Double avgAttackPointsPerMatch,
+			Double avgBlockPointsPerMatch, Double avgReceptionsPerMatch) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,14 +52,19 @@ public class Player {
 		this.condition = condition;
 		this.position = position;
 		this.height = height;
+		this.attackHeight = attackHeight;
+		this.blockHeight = blockHeight;
 		this.serverPower = serverPower;
 		this.attackPower = attackPower;
 		this.blockPower = blockPower;
 		this.receptionPower = receptionPower;
-		this.avgAttacksPointsByMatch = avgAttacksPointsByMatch;
-		this.avgBlockPointsByMatch = avgBlockPointsByMatch;
-		this.avgServerPointsByMatch = avgServerPointsByMatch;
+		this.avgServerPointsPerMatch = avgServerPointsPerMatch;
+		this.avgAttackPointsPerMatch = avgAttackPointsPerMatch;
+		this.avgBlockPointsPerMatch = avgBlockPointsPerMatch;
+		this.avgReceptionsPerMatch = avgReceptionsPerMatch;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -100,6 +113,28 @@ public class Player {
 	public void setHeight(Double height) {
 		this.height = height;
 	}
+	
+	
+
+	public Double getAttackHeight() {
+		return attackHeight;
+	}
+
+
+	public void setAttackHeight(Double attackHeight) {
+		this.attackHeight = attackHeight;
+	}
+
+
+	public Double getBlockHeight() {
+		return blockHeight;
+	}
+
+
+	public void setBlockHeight(Double blockHeight) {
+		this.blockHeight = blockHeight;
+	}
+
 
 	public Double getServerPower() {
 		return serverPower;
@@ -133,28 +168,36 @@ public class Player {
 		this.receptionPower = receptionPower;
 	}
 
-	public Double getAvgAttacksPointsByMatch() {
-		return avgAttacksPointsByMatch;
+	public Double getAvgAttackPointsPerMatch() {
+		return avgAttackPointsPerMatch;
 	}
 
-	public void setAvgAttacksPointsByMatch(Double avgAttacksPointsByMatch) {
-		this.avgAttacksPointsByMatch = avgAttacksPointsByMatch;
+	public void setAvgAttackPointsPerMatch(Double avgAttackPointsPerMatch) {
+		this.avgAttackPointsPerMatch = avgAttackPointsPerMatch;
 	}
 
-	public Double getAvgBlockPointsByMatch() {
-		return avgBlockPointsByMatch;
+	public Double getAvgBlockPointsPerMatch() {
+		return avgBlockPointsPerMatch;
 	}
 
-	public void setAvgBlockPointsByMatch(Double avgBlockPointsByMatch) {
-		this.avgBlockPointsByMatch = avgBlockPointsByMatch;
+	public void setAvgBlockPointsPerMatch(Double avgBlockPointsPerMatch) {
+		this.avgBlockPointsPerMatch = avgBlockPointsPerMatch;
 	}
 
-	public Double getAvgServerPointsByMatch() {
-		return avgServerPointsByMatch;
+	public Double getAvgServerPointsPerMatch() {
+		return avgServerPointsPerMatch;
 	}
 
-	public void setAvgServerPointsByMatch(Double avgServerPointsByMatch) {
-		this.avgServerPointsByMatch = avgServerPointsByMatch;
+	public void setAvgServerPointsPerMatch(Double avgServerPointsPerMatch) {
+		this.avgServerPointsPerMatch = avgServerPointsPerMatch;
+	}
+
+	public Double getAvgReceptionsPerMatch() {
+		return avgReceptionsPerMatch;
+	}
+
+	public void setAvgReceptionsPerMatch(Double avgReceptionsPerMatch) {
+		this.avgReceptionsPerMatch = avgReceptionsPerMatch;
 	}
 
 	@Override
