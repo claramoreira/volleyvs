@@ -1,9 +1,19 @@
 package gui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GameViewController {
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import service.PlayerService;
+
+public class GameViewController implements Initializable {
+	
+	private PlayerService firstTeamService;
+	
+	private PlayerService secondTeamService;
+	
 	
 	@FXML
 	private Label labelFirstTeam;
@@ -43,6 +53,12 @@ public class GameViewController {
 	
 	@FXML
 	private Label labelWinningTeam;
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+	 System.out.println("Game View initialized!");
+		
+	}
 	
 
 }

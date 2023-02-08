@@ -29,7 +29,7 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private void onMenuItemGameAction() {
-		System.out.println("onMenuItemGameAction");
+		loadView("/gui/GameView.fxml", (x) -> {});
 	}
 	
 	@FXML

@@ -12,16 +12,19 @@ public class Player {
 
 	private String condition;
 
+	private Position position;
+
 	public Player() {
 
 	}
 
-	public Player(Long id, String name, Integer overall, String condition) {
+	public Player(Long id, String name, Integer overall, String condition, Position position) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.overall = overall;
 		this.condition = condition;
+		this.position = position;
 	}
 
 	public Long getId() {
@@ -54,6 +57,14 @@ public class Player {
 
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 	@Override
