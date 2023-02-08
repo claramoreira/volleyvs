@@ -10,7 +10,7 @@ public class Player {
 
 	private Integer overall;
 
-	private String condition;
+	private Condition condition;
 
 	private Position position;
 
@@ -18,7 +18,7 @@ public class Player {
 
 	}
 
-	public Player(Long id, String name, Integer overall, String condition, Position position) {
+	public Player(Long id, String name, Integer overall, Condition condition, Position position) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,11 +51,11 @@ public class Player {
 		this.overall = overall;
 	}
 
-	public String getCondition() {
+	public Condition getCondition() {
 		return condition;
 	}
 
-	public void setCondition(String condition) {
+	public void setCondition(Condition condition) {
 		this.condition = condition;
 	}
 
