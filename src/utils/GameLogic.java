@@ -42,6 +42,10 @@ public class GameLogic {
 		return scores;
 	}
 	
+	public double PositionComparison(Player p1, Player p2) {
+		return 1.0; 
+	}
+	
 	public String getWinningTeam() {
 		return "Minas 2019";
 	}
