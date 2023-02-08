@@ -21,11 +21,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Player;
-import service.PlayerService;
+import service.FirstPlayerService;
 
 public class TeamListController implements Initializable {
 
-	private PlayerService service;
+	private FirstPlayerService service;
 	
 	@FXML
 	private TableView<Player> tableViewPlayer;
@@ -44,7 +44,7 @@ public class TeamListController implements Initializable {
 
 	private ObservableList<Player> obsList;
 	
-	public void setPlayerService(PlayerService service) {
+	public void setPlayerService(FirstPlayerService service) {
 		this.service = service;
 	}
 	

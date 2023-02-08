@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import service.PlayerService;
+import service.FirstPlayerService;
 
 public class MainViewController implements Initializable {
 
@@ -35,7 +35,7 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemTeamAction() {
 		loadView("/gui/TeamList.fxml", (TeamListController controller) -> {
-			controller.setPlayerService(new PlayerService());
+			controller.setPlayerService(new FirstPlayerService());
 			controller.updateTableView();
 		});
 	}

@@ -6,13 +6,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import service.PlayerService;
+import service.FirstPlayerService;
 
 public class GameViewController implements Initializable {
 	
-	private PlayerService firstTeamService;
+	private FirstPlayerService firstTeamService;
 	
-	private PlayerService secondTeamService;
+	private FirstPlayerService secondTeamService;
 	
 	
 	@FXML
