@@ -42,7 +42,7 @@ public class PlayerViewController implements Initializable {
 		labelTitle.setText(player.getName());
 		labelName.setText(player.getName());
 		labelOverall.setText(String.valueOf(player.getOverall()));
-		labelCondition.setText(player.getCondition());
+		labelCondition.setText(player.getCondition().name());
 	}
 	
 }

@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GameViewController">
    <children>
       <Label text="Partida #N">
          <padding>
@@ -37,8 +36,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Time 1" GridPane.columnIndex="1" />
-            <Label text="Time 2" GridPane.columnIndex="3" />
+            <Label fx:id="labelFirstTeam" text="Time 1" GridPane.columnIndex="1" />
+            <Label fx:id="labelSecondTeam" text="Time 2" GridPane.columnIndex="3" />
             <Label text="vs" GridPane.columnIndex="2" />
             <Label text="Primeiro Set" GridPane.rowIndex="3" />
             <Label text="Segundo Set" GridPane.rowIndex="4" />
