@@ -18,9 +18,9 @@
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Team">
-                  <items>
-                    <MenuItem fx:id="menuItemTeam" mnemonicParsing="false" onAction="#onMenuItemTeamAction" text="Delete" />
-                  </items>
+                     <items>
+                        <MenuItem fx:id="menuItemTeam" mnemonicParsing="false" onAction="#onMenuItemTeamAction" text="My Team" />
+                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="About">
                   <items>
