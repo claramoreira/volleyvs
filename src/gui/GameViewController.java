@@ -1,25 +1,23 @@
 package gui;
 
 import java.net.URL;
-import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-import application.Main;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import model.entities.Player;
-import service.FirstPlayerService;
+import model.entities.Score;
 import service.PlayerService;
+import utils.GameLogic;
 
 public class GameViewController implements Initializable {
 
 	private PlayerService firstTeamService;
 
 	private PlayerService secondTeamService;
+
+	private GameLogic gameLogic;
 
 	@FXML
 	private Label labelFirstTeam;
@@ -68,6 +66,10 @@ public class GameViewController implements Initializable {
 		this.secondTeamService = secondTeamService;
 	}
 
+	public void setGameLogic(GameLogic gameLogic) {
+		this.gameLogic = gameLogic;
+	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		System.out.println("Game View initialized!");
@@ -75,15 +77,30 @@ public class GameViewController implements Initializable {
 	}
 
 	private void initializeNodes() {
-		
+
 	}
 
 	public void updateGameView() {
 		if (firstTeamService == null || secondTeamService == null) {
 			throw new IllegalStateException("Service was null");
 		}
+
 		labelFirstTeam.setText(firstTeamService.findTeamName());
 		labelSecondTeam.setText(secondTeamService.findTeamName());
+
+		Map<String, Score> scores = gameLogic.evaluateMatch();
+
+		labelFirstTeamFirstSet.setText(String.valueOf(scores.get("FirstSet").getFirstTeamScore()));
+		labelSecondTeamFirstSet.setText(String.valueOf(scores.get("FirstSet").getSecondTeamScore()));
+
+		labelFirstTeamSecondSet.setText(String.valueOf(scores.get("SecondSet").getFirstTeamScore()));
+		labelSecondTeamSecondSet.setText(String.valueOf(scores.get("SecondSet").getSecondTeamScore()));
+
+		labelFirstTeamThirdSet.setText(String.valueOf(scores.get("ThirdSet").getFirstTeamScore()));
+		labelSecondTeamThirdSet.setText(String.valueOf(scores.get("ThirdSet").getSecondTeamScore()));
+		
+		labelWinningTeam.setText("Time vencedor: " + gameLogic.getWinningTeam());
+
 	}
 
 }
