@@ -2,6 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,18 +48,25 @@ public class GameLogic {
 		return scores;
 	}
 
-	public List<Player> organizeTeam(List<Player> team, Boolean serving) {
-		Player position1 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LEVANTADORA))
-				.collect(Collectors.toList()).get(0);
+	public List<Player> rotateTeam(List<Player> team) {
+		Collections.rotate(team, 1);
+		return team;
+	}
+
+	public List<Player> organizeStartTeam(List<Player> team, Boolean serving) {
+
 		Player position2 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
 				.collect(Collectors.toList()).get(0);
 		Player position3 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
 				.collect(Collectors.toList()).get(0);
 		Player position4 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.OPOSTA))
 				.collect(Collectors.toList()).get(0);
+
+		Player position1 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LEVANTADORA))
+				.collect(Collectors.toList()).get(0);
 		Player position5 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
 				.collect(Collectors.toList()).get(1);
-		
+
 		Player position6;
 		if (serving == true) {
 			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
@@ -67,9 +75,9 @@ public class GameLogic {
 			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
 					.collect(Collectors.toList()).get(0);
 		}
-		
+
 		List<Player> organized = Arrays.asList(position1, position2, position3, position4, position5, position6);
-		
+
 		return organized;
 	}
 
