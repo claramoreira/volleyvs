@@ -15,9 +15,9 @@ public class Player {
 	private Position position;
 
 	private Double height;
-	
+
 	private Double attackHeight;
-	
+
 	private Double blockHeight;
 
 	private Double serverPower;
@@ -29,7 +29,7 @@ public class Player {
 	private Double receptionPower;
 
 	private Double avgServerPointsPerMatch;
-	
+
 	private Double avgAttackPointsPerMatch;
 
 	private Double avgBlockPointsPerMatch;
@@ -39,7 +39,6 @@ public class Player {
 	public Player() {
 
 	}
-
 
 	public Player(Long id, String name, Integer overall, Condition condition, Position position, Double height,
 			Double attackHeight, Double blockHeight, Double serverPower, Double attackPower, Double blockPower,
@@ -63,8 +62,6 @@ public class Player {
 		this.avgBlockPointsPerMatch = avgBlockPointsPerMatch;
 		this.avgReceptionsPerMatch = avgReceptionsPerMatch;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -113,28 +110,22 @@ public class Player {
 	public void setHeight(Double height) {
 		this.height = height;
 	}
-	
-	
 
 	public Double getAttackHeight() {
 		return attackHeight;
 	}
 
-
 	public void setAttackHeight(Double attackHeight) {
 		this.attackHeight = attackHeight;
 	}
-
 
 	public Double getBlockHeight() {
 		return blockHeight;
 	}
 
-
 	public void setBlockHeight(Double blockHeight) {
 		this.blockHeight = blockHeight;
 	}
-
 
 	public Double getServerPower() {
 		return serverPower;
@@ -215,6 +206,11 @@ public class Player {
 			return false;
 		Player other = (Player) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", name=" + name + ", condition=" + condition + ", position=" + position + "]";
 	}
 
 }

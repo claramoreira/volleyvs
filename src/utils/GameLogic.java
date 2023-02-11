@@ -1,11 +1,16 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import model.entities.Player;
 import model.entities.Score;
+import model.entities.Position;
 
 public class GameLogic {
 
@@ -41,11 +46,33 @@ public class GameLogic {
 		scores.put("ThirdSet", new Score(25L, 13L));
 		return scores;
 	}
-	
-	public double PositionComparison(Player p1, Player p2) {
-		return 1.0; 
+
+	public List<Player> organizeTeam(List<Player> team, Boolean serving) {
+		Player position1 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LEVANTADORA))
+				.collect(Collectors.toList()).get(0);
+		Player position2 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
+				.collect(Collectors.toList()).get(0);
+		Player position3 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
+				.collect(Collectors.toList()).get(0);
+		Player position4 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.OPOSTA))
+				.collect(Collectors.toList()).get(0);
+		Player position5 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
+				.collect(Collectors.toList()).get(1);
+		
+		Player position6;
+		if (serving == true) {
+			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
+					.collect(Collectors.toList()).get(1);
+		} else {
+			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
+					.collect(Collectors.toList()).get(0);
+		}
+		
+		List<Player> organized = Arrays.asList(position1, position2, position3, position4, position5, position6);
+		
+		return organized;
 	}
-	
+
 	public String getWinningTeam() {
 		return "Minas 2019";
 	}
