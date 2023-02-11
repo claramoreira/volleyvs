@@ -50,27 +50,41 @@ public class GameLogic {
 
 	public List<Player> rotateTeam(List<Player> team) {
 		Collections.rotate(team, 1);
+		validateLiberoPosition(team);
+		return team;
+	}
+
+	public List<Player> validateLiberoPosition(List<Player> team) {
+
+		List<Integer> pos = Arrays.asList(1, 2, 3);
+		int liberoPosition = team.indexOf(team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
+				.collect(Collectors.toList()).get(0));
+
+		if (pos.contains(liberoPosition)) {
+			System.out.println("Libero no ataque, não é possível!");
+		}
+
 		return team;
 	}
 
 	public List<Player> organizeStartTeam(List<Player> team, Boolean serving) {
 
-		Player position2 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
+		Player position2 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA1))
 				.collect(Collectors.toList()).get(0);
-		Player position3 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
+		Player position3 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL1))
 				.collect(Collectors.toList()).get(0);
 		Player position4 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.OPOSTA))
 				.collect(Collectors.toList()).get(0);
 
 		Player position1 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LEVANTADORA))
 				.collect(Collectors.toList()).get(0);
-		Player position5 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
-				.collect(Collectors.toList()).get(1);
+		Player position5 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA2))
+				.collect(Collectors.toList()).get(0);
 
 		Player position6;
 		if (serving == true) {
-			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
-					.collect(Collectors.toList()).get(1);
+			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL2))
+					.collect(Collectors.toList()).get(0);
 		} else {
 			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
 					.collect(Collectors.toList()).get(0);

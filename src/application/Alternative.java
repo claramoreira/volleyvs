@@ -52,6 +52,25 @@ public class Alternative {
 			System.out.println("Position " + (index++) + ": " + p);
 		}
 		
+		System.out.println();
+		
+		System.out.println(" --------- THIRD POINT - TEAM ONE SERVES AGAIN ------- ");
+		
+		team2 = gameLogic.rotateTeam(team2);
+		
+		System.out.println("TEAM ONE: ");
+		index = 1;
+		for (Player p : team1) {
+			System.out.println("Position " + (index++) + ": " + p);
+		}
+		System.out.println();
+		
+		System.out.println("TEAM TWO: ");
+		index = 1;
+		for (Player p : team2) {
+			System.out.println("Position " + (index++) + ": " + p);
+		}
+		
 		
 	}
 }
