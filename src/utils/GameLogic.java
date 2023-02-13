@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import model.entities.Player;
 import model.entities.Score;
@@ -17,6 +18,12 @@ public class GameLogic {
 
 	private List<Player> firstTeam;
 	private List<Player> secondTeam;
+
+	private Integer firstTeamScore;
+	private Integer secondTeamScore;
+
+	private static List<Integer> net = Arrays.asList(1, 2, 3);
+	private static List<Integer> deffense = Arrays.asList(0, 4, 5);
 
 	public GameLogic(List<Player> firstTeam, List<Player> secondTeam) {
 		super();
@@ -56,11 +63,15 @@ public class GameLogic {
 
 	public List<Player> validateLiberoPosition(List<Player> team) {
 
-		List<Integer> pos = Arrays.asList(1, 2, 3);
 		int liberoPosition = team.indexOf(team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
 				.collect(Collectors.toList()).get(0));
 
-		if (pos.contains(liberoPosition)) {
+		// Libero is not in the team
+		if (liberoPosition == -1) {
+			return team;
+		}
+
+		if (net.contains(liberoPosition)) {
 			System.out.println("Libero no ataque, não é possível!");
 		}
 
@@ -93,6 +104,32 @@ public class GameLogic {
 		List<Player> organized = Arrays.asList(position1, position2, position3, position4, position5, position6);
 
 		return organized;
+	}
+
+	public void evaluateCurrentSquad(List<Player> firstTeam, List<Player> secondTeam) {
+		List <Player> firstTeamNet =  IntStream.range(0, firstTeam.size()).filter(i -> net.contains(i)).mapToObj(firstTeam::get).collect(Collectors.toList());
+		List <Player> secondTeamNet =  IntStream.range(0, secondTeam.size()).filter(i -> net.contains(i)).mapToObj(secondTeam::get).collect(Collectors.toList());
+		
+		List <Player> firstTeamDeffense =  IntStream.range(0, firstTeam.size()).filter(i -> deffense.contains(i)).mapToObj(firstTeam::get).collect(Collectors.toList());
+		List <Player> secondTeamDeffense =  IntStream.range(0, secondTeam.size()).filter(i -> deffense.contains(i)).mapToObj(secondTeam::get).collect(Collectors.toList());
+		
+		Player playerServing = firstTeam.get(0);
+		
+		Double firstTeamAttackAverage = firstTeamNet.stream().mapToDouble(p -> p.getAttackPower()).average().orElse(0);
+		Double secondTeamAttackAverage = secondTeamNet.stream().mapToDouble(p -> p.getAttackPower()).average().orElse(0);
+		
+		Double firstTeamDeffenseAverage = firstTeamDeffense.stream().mapToDouble(p -> p.getReceptionPower()).average().orElse(0);
+		Double secondTeamDeffenseAverage = secondTeamDeffense.stream().mapToDouble(p -> p.getReceptionPower()).average().orElse(0);
+		
+		Double serverPower = playerServing.getServerPower();
+		
+		System.out.println("firstTeamAttackAverage: " + String.valueOf(firstTeamAttackAverage));
+		System.out.println("secondTeamAttackAverage: " + String.valueOf(secondTeamAttackAverage));
+		System.out.println("firstTeamDeffenseAverage: " + String.valueOf(firstTeamDeffenseAverage));
+		System.out.println("secondTeamDeffenseAverage: " + String.valueOf(secondTeamDeffenseAverage));
+		System.out.println("serverPower: " + String.valueOf(serverPower));
+		
+		
 	}
 
 	public String getWinningTeam() {

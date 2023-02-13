@@ -34,6 +34,7 @@ public class Alternative {
 		}
 		
 		System.out.println();
+		gameLogic.evaluateCurrentSquad(team1, team2);
 		
 		System.out.println(" --------- SECOND POINT - TEAM ONE SERVES AGAIN ------- ");
 		
