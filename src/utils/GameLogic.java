@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,8 +11,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import model.entities.Player;
-import model.entities.Score;
 import model.entities.Position;
+import model.entities.Score;
 
 public class GameLogic {
 
@@ -74,7 +73,6 @@ public class GameLogic {
 
 	public List<Player> rotateTeam(List<Player> team) {
 		Collections.rotate(team, 1);
-		validateLiberoPosition(team);
 		return team;
 	}
 
@@ -122,24 +120,31 @@ public class GameLogic {
 
 		return organized;
 	}
-	
+
 	public void playSet(List<Player> teamOne, List<Player> teamTwo) {
 		Integer score1 = 0;
 		Integer score2 = 0;
-		while (score1 < 25 && score2 < 25) {
-			String pointer = evaluateCurrentSquad(teamOne, teamTwo);
+		String serving = "first";
+		while ((score1 < 25 && score2 < 25) || (Math.abs(score1 - score2) < 2)) {
+			String pointer = evaluateCurrentSquad(teamOne, teamTwo, serving);
 			if (pointer == "first") {
 				score1 += 1;
+				serving = "first";
+				teamTwo = rotateTeam(teamTwo);
 			} else {
 				score2 += 1;
+				serving = "second";
+				teamOne = rotateTeam(teamOne);
 			}
+			System.out.println("SCORE: ");
+			System.out.println("TeamOne: " + score1 + " -- -- TeamTwo: " + score2);
 		}
 		System.out.println("SET OVER: ");
 		System.out.println("TeamOne: " + score1);
 		System.out.println("TeamTwo: " + score2);
 	}
 
-	private String evaluateCurrentSquad(List<Player> teamOne, List<Player> teamTwo) {
+	private String evaluateCurrentSquad(List<Player> teamOne, List<Player> teamTwo, String serving) {
 		List<Player> firstTeamNet = IntStream.range(0, teamOne.size()).filter(i -> net.contains(i))
 				.mapToObj(teamOne::get).collect(Collectors.toList());
 		List<Player> secondTeamNet = IntStream.range(0, teamTwo.size()).filter(i -> net.contains(i))
@@ -150,7 +155,15 @@ public class GameLogic {
 		List<Player> secondTeamDeffense = IntStream.range(0, teamTwo.size()).filter(i -> deffense.contains(i))
 				.mapToObj(teamTwo::get).collect(Collectors.toList());
 
-		Player playerServing = teamOne.get(0);
+		String attacking; // true == second team;
+		Player playerServing;
+		if (serving == "first") {
+			playerServing = teamOne.get(0);
+			attacking = "second";
+		} else {
+			playerServing = teamTwo.get(0);
+			attacking = "first";
+		}
 
 		Double firstTeamAttackAverage = firstTeamNet.stream()
 				.mapToDouble(p -> p.getAttackPower() * p.getAvgAttackPointsPerMatch() / 10 * p.getCondition().value())
@@ -173,28 +186,38 @@ public class GameLogic {
 
 		Double secondTeamStatusAvg = secondTeam.stream().mapToDouble(p -> p.getCondition().value()).average().orElse(0);
 
-		System.out.println();
-		System.out.println(firstTeamNet);
-		System.out.println(secondTeamNet);
-		System.out.println(firstTeamDeffense);
-		System.out.println(secondTeamDeffense);
-		System.out.println();
-		System.out.println("firstTeamAttackAverage: " + String.valueOf(firstTeamAttackAverage));
-		System.out.println("secondTeamAttackAverage: " + String.valueOf(secondTeamAttackAverage));
-		System.out.println("firstTeamDeffenseAverage: " + String.valueOf(firstTeamDeffenseAverage));
-		System.out.println("secondTeamDeffenseAverage: " + String.valueOf(secondTeamDeffenseAverage));
-		System.out.println("serverPower: " + String.valueOf(serverPower));
-		System.out.println("firstTeamStatusAvg: " + String.valueOf(firstTeamStatusAvg));
-		System.out.println("secondTeamStatusAvg: " + String.valueOf(secondTeamStatusAvg));
+		/*
+		 * System.out.println(); System.out.println(firstTeamNet);
+		 * System.out.println(secondTeamNet); System.out.println(firstTeamDeffense);
+		 * System.out.println(secondTeamDeffense); System.out.println();
+		 * System.out.println("firstTeamAttackAverage: " +
+		 * String.valueOf(firstTeamAttackAverage));
+		 * System.out.println("secondTeamAttackAverage: " +
+		 * String.valueOf(secondTeamAttackAverage));
+		 * System.out.println("firstTeamDeffenseAverage: " +
+		 * String.valueOf(firstTeamDeffenseAverage));
+		 * System.out.println("secondTeamDeffenseAverage: " +
+		 * String.valueOf(secondTeamDeffenseAverage));
+		 * System.out.println("serverPower: " + String.valueOf(serverPower));
+		 * System.out.println("firstTeamStatusAvg: " +
+		 * String.valueOf(firstTeamStatusAvg));
+		 * System.out.println("secondTeamStatusAvg: " +
+		 * String.valueOf(secondTeamStatusAvg));
+		 */
 
-		System.out.println();
-		System.out.println("------- SERVING EVALUATION ---------");
-		Double serving = serverPower - secondTeamDeffenseAverage;
-		System.out.println("serving: " + String.valueOf(serving));
+		// System.out.println();
+		// System.out.println("------- SERVING EVALUATION ---------");
+		Double servingScore = serverPower * 10 - secondTeamDeffenseAverage;
+		// System.out.println("serving: " + String.valueOf(serving));
+		System.out.println("Serving: " + serving);
+		System.out.println(playerServing.getName());
+		if (servingScore > 0.0) {
+			System.out.println("TEAM " + serving + " serving  - ACE FROM " + playerServing.getName());
+			return serving;
+		}
 
 		Double pointThreshold = 1.0;
 		Integer rally = 1;
-		String attacking = "second"; // true == second team;
 		Double attackScore = 0.0;
 
 		Random randomTeamOne = new Random();
@@ -208,14 +231,14 @@ public class GameLogic {
 		while (pointThreshold < 100.00) {
 			switch (attacking) {
 			case "first":
-				System.out.println("first");
+				// System.out.println("first");
 				randomTeamOneValue = 1 + 8 * randomTeamOne.nextDouble();
 				randomTeamTwoValue = 1 + 8 * randomTeamTwo.nextDouble();
 				attackScore = (firstTeamAttackAverage / (randomTeamOne.nextDouble() * 5.0) - secondTeamDeffenseAverage)
 						+ (randomTeamOneValue - randomTeamTwoValue);
 				break;
 			case "second":
-				System.out.println("second");
+				// System.out.println("second");
 				randomTeamOneValue = 1 + 8 * randomTeamOne.nextDouble();
 				randomTeamTwoValue = 1 + 8 * randomTeamTwo.nextDouble();
 				attackScore = (secondTeamAttackAverage / (randomTeamTwo.nextDouble() * 5.0) - firstTeamDeffenseAverage)
@@ -223,9 +246,9 @@ public class GameLogic {
 				break;
 			}
 			pointThreshold = attackScore;
-			System.out.println(attacking + " : " + attackScore);
+			// System.out.println(attacking + " : " + attackScore);
 			rally += 1;
-			System.out.println("Rally: " + rally);
+			// System.out.println("Rally: " + rally);
 			if (attacking == "second") {
 				attacking = "first";
 			} else {
@@ -233,13 +256,13 @@ public class GameLogic {
 			}
 
 		}
-		
+
 		if (attacking == "second") {
 			attacking = "first";
 		} else {
 			attacking = "second";
 		}
-		
+
 		return attacking;
 
 	}
