@@ -106,30 +106,46 @@ public class GameLogic {
 		return organized;
 	}
 
-	public void evaluateCurrentSquad(List<Player> firstTeam, List<Player> secondTeam) {
-		List <Player> firstTeamNet =  IntStream.range(0, firstTeam.size()).filter(i -> net.contains(i)).mapToObj(firstTeam::get).collect(Collectors.toList());
-		List <Player> secondTeamNet =  IntStream.range(0, secondTeam.size()).filter(i -> net.contains(i)).mapToObj(secondTeam::get).collect(Collectors.toList());
-		
-		List <Player> firstTeamDeffense =  IntStream.range(0, firstTeam.size()).filter(i -> deffense.contains(i)).mapToObj(firstTeam::get).collect(Collectors.toList());
-		List <Player> secondTeamDeffense =  IntStream.range(0, secondTeam.size()).filter(i -> deffense.contains(i)).mapToObj(secondTeam::get).collect(Collectors.toList());
-		
-		Player playerServing = firstTeam.get(0);
-		
-		Double firstTeamAttackAverage = firstTeamNet.stream().mapToDouble(p -> p.getAttackPower()).average().orElse(0);
-		Double secondTeamAttackAverage = secondTeamNet.stream().mapToDouble(p -> p.getAttackPower()).average().orElse(0);
-		
-		Double firstTeamDeffenseAverage = firstTeamDeffense.stream().mapToDouble(p -> p.getReceptionPower()).average().orElse(0);
-		Double secondTeamDeffenseAverage = secondTeamDeffense.stream().mapToDouble(p -> p.getReceptionPower()).average().orElse(0);
-		
-		Double serverPower = playerServing.getServerPower();
-		
+	public void evaluateCurrentSquad(List<Player> teamOne, List<Player> teamTwo) {
+		List<Player> firstTeamNet = IntStream.range(0, teamOne.size()).filter(i -> net.contains(i))
+				.mapToObj(teamOne::get).collect(Collectors.toList());
+		List<Player> secondTeamNet = IntStream.range(0, teamTwo.size()).filter(i -> net.contains(i))
+				.mapToObj(teamTwo::get).collect(Collectors.toList());
+
+		List<Player> firstTeamDeffense = IntStream.range(0, teamOne.size()).filter(i -> deffense.contains(i))
+				.mapToObj(teamOne::get).collect(Collectors.toList());
+		List<Player> secondTeamDeffense = IntStream.range(0, teamTwo.size()).filter(i -> deffense.contains(i))
+				.mapToObj(teamTwo::get).collect(Collectors.toList());
+
+		Player playerServing = teamOne.get(0);
+
+		Double firstTeamAttackAverage = firstTeamNet.stream()
+				.mapToDouble(p -> p.getAttackPower() * p.getAvgAttackPointsPerMatch() / 10 * p.getCondition().value())
+				.average().orElse(0);
+		Double secondTeamAttackAverage = secondTeamNet.stream()
+				.mapToDouble(p -> p.getAttackPower() * p.getAvgAttackPointsPerMatch() / 10 * p.getCondition().value())
+				.average().orElse(0);
+
+		Double firstTeamDeffenseAverage = firstTeamDeffense.stream()
+				.mapToDouble(p -> p.getReceptionPower() * p.getAvgReceptionsPerMatch() / 10 * p.getCondition().value())
+				.average().orElse(0);
+		Double secondTeamDeffenseAverage = secondTeamDeffense.stream()
+				.mapToDouble(p -> p.getReceptionPower() * p.getAvgReceptionsPerMatch() /10 * p.getCondition().value())
+				.average().orElse(0);
+
+		Double serverPower = playerServing.getServerPower() * playerServing.getAvgServerPointsPerMatch() / 10
+				* playerServing.getCondition().value();
+
+		System.out.println(firstTeamNet);
+		System.out.println(secondTeamNet);
+		System.out.println(firstTeamDeffense);
+		System.out.println(secondTeamDeffense);
 		System.out.println("firstTeamAttackAverage: " + String.valueOf(firstTeamAttackAverage));
 		System.out.println("secondTeamAttackAverage: " + String.valueOf(secondTeamAttackAverage));
 		System.out.println("firstTeamDeffenseAverage: " + String.valueOf(firstTeamDeffenseAverage));
 		System.out.println("secondTeamDeffenseAverage: " + String.valueOf(secondTeamDeffenseAverage));
 		System.out.println("serverPower: " + String.valueOf(serverPower));
-		
-		
+
 	}
 
 	public String getWinningTeam() {

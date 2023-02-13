@@ -19,7 +19,7 @@ public class SecondPlayerService implements PlayerService {
 		Player p2 = new Player(9L, "Bruna Honorio", 77, Condition.BAD, Position.PONTEIRA2, 1.81, 3.10, 2.92, 4.20, 39.93,
 				9.1, 3.9, 3.8, 10.84, 1.12, 6.23);
 		Player p3 = new Player(10L, "Suellen", 78, Condition.EXCELLENT, Position.LIBERO, 1.66, 2.62, 2.38, 1.80, 0.0,
-				0.01, 0.0, 0.0, 0.02, 0.0, 34.0);
+				0.01, 10.0, 0.0, 0.02, 0.0, 24.0);
 		Player p4 = new Player(11L, "Claudinha", 83, Condition.EXCELLENT, Position.LEVANTADORA, 1.81, 2.90, 2.66, 1.80,
 				10.92, 4.91, 8.44, 1.33, 1.4, 1.21, 13.32);
 		Player p5 = new Player(12L, "Carolana", 90, Condition.AWFUL, Position.CENTRAL1, 1.83, 3.16, 3.09, 3.22, 34.92,
