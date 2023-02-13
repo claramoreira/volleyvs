@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -121,11 +122,66 @@ public class GameLogic {
 		return organized;
 	}
 
-	public void playSet(List<Player> teamOne, List<Player> teamTwo) {
+	public void playGame(List<Player> teamOne, List<Player> teamTwo) {
+
+		List<String> sets = new ArrayList<>();
+
+		System.out.println("FIRST SET:");
+		Map<String, Integer> firstSet = playSet(teamOne, teamTwo, false);
+		String firstSetWinner = firstSet.entrySet().stream().max((e1, e2) -> e1.getValue() > e2.getValue() ? 1 : -1)
+				.get().getKey();
+		sets.add(firstSetWinner);
+
+		System.out.println("SECOND SET:");
+		Map<String, Integer> secondSet = playSet(teamOne, teamTwo, false);
+		String secondSetWinner = secondSet.entrySet().stream().max((e1, e2) -> e1.getValue() > e2.getValue() ? 1 : -1)
+				.get().getKey();
+		sets.add(secondSetWinner);
+
+		System.out.println("THIRD SET:");
+		Map<String, Integer> thirdSet = playSet(teamOne, teamTwo, false);
+		String thirdSetWinner = thirdSet.entrySet().stream().max((e1, e2) -> e1.getValue() > e2.getValue() ? 1 : -1)
+				.get().getKey();
+		sets.add(thirdSetWinner);
+
+		if (Collections.frequency(sets, "firstTeam") == 3 || Collections.frequency(sets, "secondTeam") == 3) {
+			System.out.println("Game over!");
+		} else {
+			System.out.println("FOURTH SET:");
+			Map<String, Integer> fourthSet = playSet(teamOne, teamTwo, false);
+			String fourthSetWinner = fourthSet.entrySet().stream()
+					.max((e1, e2) -> e1.getValue() > e2.getValue() ? 1 : -1).get().getKey();
+			sets.add(fourthSetWinner);
+			if (Collections.frequency(sets, "firstTeam") == 3 || Collections.frequency(sets, "secondTeam") == 3) {
+				System.out.println("Game over!");
+			} else {
+				System.out.println("FIFTH SET:");
+				Map<String, Integer> fifthSet = playSet(teamOne, teamTwo, true);
+				String fifthSetWinner = fifthSet.entrySet().stream()
+						.max((e1, e2) -> e1.getValue() > e2.getValue() ? 1 : -1).get().getKey();
+				sets.add(fifthSetWinner);
+				System.out.println("Game over!");
+			}
+		}
+
+		System.out.println();
+
+		System.out.println(sets);
+		System.out.println("--- RESULTADO FINAL ---");
+		System.out.println("First team: " + Collections.frequency(sets, "firstTeam"));
+		System.out.println("Second team: " + Collections.frequency(sets, "secondTeam"));
+
+	}
+
+	private Map<String, Integer> playSet(List<Player> teamOne, List<Player> teamTwo, Boolean tieBreak) {
+		Integer serverCount = 25;
+		if (tieBreak == true) {
+			serverCount = 15;
+		}
 		Integer score1 = 0;
 		Integer score2 = 0;
 		String serving = "first";
-		while ((score1 < 25 && score2 < 25) || (Math.abs(score1 - score2) < 2)) {
+		while ((score1 < serverCount && score2 < serverCount) || (Math.abs(score1 - score2) < 2)) {
 			String pointer = evaluateCurrentSquad(teamOne, teamTwo, serving);
 			if (pointer == "first") {
 				score1 += 1;
@@ -136,12 +192,17 @@ public class GameLogic {
 				serving = "second";
 				teamOne = rotateTeam(teamOne);
 			}
-			System.out.println("SCORE: ");
-			System.out.println("TeamOne: " + score1 + " -- -- TeamTwo: " + score2);
+			// System.out.println("SCORE: ");
+			// System.out.println("TeamOne: " + score1 + " -- -- TeamTwo: " + score2);
 		}
 		System.out.println("SET OVER: ");
 		System.out.println("TeamOne: " + score1);
 		System.out.println("TeamTwo: " + score2);
+
+		Map result = new HashMap<>();
+		result.put("firstTeam", score1);
+		result.put("secondTeam", score2);
+		return result;
 	}
 
 	private String evaluateCurrentSquad(List<Player> teamOne, List<Player> teamTwo, String serving) {
@@ -209,10 +270,11 @@ public class GameLogic {
 		// System.out.println("------- SERVING EVALUATION ---------");
 		Double servingScore = serverPower * 10 - secondTeamDeffenseAverage;
 		// System.out.println("serving: " + String.valueOf(serving));
-		System.out.println("Serving: " + serving);
-		System.out.println(playerServing.getName());
+		// System.out.println("Serving: " + serving);
+		// System.out.println(playerServing.getName());
 		if (servingScore > 0.0) {
-			System.out.println("TEAM " + serving + " serving  - ACE FROM " + playerServing.getName());
+			// System.out.println("TEAM " + serving + " serving - ACE FROM " +
+			// playerServing.getName());
 			return serving;
 		}
 
@@ -226,7 +288,7 @@ public class GameLogic {
 		Double randomTeamOneValue = 0.0;
 		Double randomTeamTwoValue = 0.0;
 
-		System.out.println();
+		// System.out.println();
 
 		while (pointThreshold < 100.00) {
 			switch (attacking) {

@@ -19,7 +19,7 @@ public class Alternative {
 		List<Player> team2 = gameLogic.organizeStartTeam(secondTeam, false);
 		
 		System.out.println();
-		gameLogic.playSet(team1, team2);
+		gameLogic.playGame(team1, team2);
 		
 		
 	}
