@@ -82,7 +82,6 @@ public class GameLogic {
 		int liberoPosition = team.indexOf(team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
 				.collect(Collectors.toList()).get(0));
 
-		// Libero is not in the team
 		if (liberoPosition == -1) {
 			return team;
 		}
@@ -205,7 +204,7 @@ public class GameLogic {
 		return result;
 	}
 
-	private String evaluateCurrentSquad(List<Player> teamOne, List<Player> teamTwo, String serving) {
+	public String evaluateCurrentSquad(List<Player> teamOne, List<Player> teamTwo, String serving) {
 		List<Player> firstTeamNet = IntStream.range(0, teamOne.size()).filter(i -> net.contains(i))
 				.mapToObj(teamOne::get).collect(Collectors.toList());
 		List<Player> secondTeamNet = IntStream.range(0, teamTwo.size()).filter(i -> net.contains(i))
