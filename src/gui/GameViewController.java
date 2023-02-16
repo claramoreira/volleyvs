@@ -1,8 +1,13 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -25,6 +30,10 @@ public class GameViewController implements Initializable {
 	private PlayerService secondTeamService;
 
 	private GameLogic gameLogic;
+
+	private Integer pointsPerSet = 25;
+
+	private List<String> setWinner = new ArrayList<>();
 
 	private Integer score1 = 0;
 
@@ -77,29 +86,115 @@ public class GameViewController implements Initializable {
 
 	@FXML
 	private Label labelWinningTeam;
-	
-	private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-		public void handle(ActionEvent actionEvent) {
-			System.out.println("cycling");
-			String pointer = gameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving);
-			if (pointer == "first") {
-				score1 += 1;
-				serving = "first";
-				teamTwo = gameLogic.rotateTeam(teamTwo);
-			} else {
-				score2 += 1;
-				serving = "second";
-				teamOne = gameLogic.rotateTeam(teamOne);
+
+	private Timeline timeline;
+
+	private String set = "first";
+
+	private void setTimeline() {
+		timeline = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent actionEvent) {
+
+				String pointer = gameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving);
+				if (pointer == "first") {
+					score1 += 1;
+					serving = "first";
+					teamTwo = gameLogic.rotateTeam(teamTwo);
+				} else {
+					score2 += 1;
+					serving = "second";
+					teamOne = gameLogic.rotateTeam(teamOne);
+				}
+				
+				switch (set) {
+				case "first": {
+					labelFirstTeamFirstSet.setText(String.valueOf(score1));
+					labelSecondTeamFirstSet.setText(String.valueOf(score2));
+					break;
+				}
+				case "second": {
+					labelFirstTeamSecondSet.setText(String.valueOf(score1));
+					labelSecondTeamSecondSet.setText(String.valueOf(score2));
+					break;
+				}
+				case "third": {
+					labelFirstTeamThirdSet.setText(String.valueOf(score1));
+					labelSecondTeamThirdSet.setText(String.valueOf(score2));
+					break;
+				}
+				case "fourth": {
+					labelFirstTeamFourthSet.setText(String.valueOf(score1));
+					labelSecondTeamFourthSet.setText(String.valueOf(score2));
+					break;
+				}
+				case "fifth": {
+					labelFirstTeamFifthSet.setText(String.valueOf(score1));
+					labelSecondTeamFifthSet.setText(String.valueOf(score2));
+					break;
+				}
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + set);
+				}
+
+				
+				if (!((score1 < pointsPerSet && score2 < pointsPerSet) || (Math.abs(score1 - score2) < 2))) {
+					setWinner.add((score1 > score2) ? "first" : "second");
+					
+					score1 = 0;
+					score2 = 0;
+					
+					switch (set) {
+					case "first": {
+						set = "second";
+						break;
+					}
+					case "second": {
+						set = "third";
+						break;
+					}
+					case "third": {
+						set = "fourth";
+						break;
+					}
+					case "fourth": {
+						set = "fifth";
+						pointsPerSet = 15;
+						break;
+					}
+					case "fifth": {
+						set = "end";
+						System.out.println("GameOver!");
+						stop();
+						break;
+					}
+					default:
+						throw new IllegalArgumentException("Unexpected value: " + set);
+					}
+					
+					
+				}
+
 			}
-			labelFirstTeamFirstSet.setText(String.valueOf(score1));
-			labelSecondTeamFirstSet.setText(String.valueOf(score2));
-			
-			if (score1 > 14 || score2 > 14) {
-				stop();
-			}
-		}
-		
-	}));
+
+		}));
+
+	}
+
+	/*
+	 * private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
+	 * new EventHandler<ActionEvent>() { public void handle(ActionEvent actionEvent)
+	 * { System.out.println("cycling"); String pointer =
+	 * gameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving); if (pointer ==
+	 * "first") { score1 += 1; serving = "first"; teamTwo =
+	 * gameLogic.rotateTeam(teamTwo); } else { score2 += 1; serving = "second";
+	 * teamOne = gameLogic.rotateTeam(teamOne); }
+	 * labelFirstTeamFirstSet.setText(String.valueOf(score1));
+	 * labelSecondTeamFirstSet.setText(String.valueOf(score2));
+	 * 
+	 * if (score1 > 14 || score2 > 14) { stop(); } }
+	 * 
+	 * }));
+	 */
 
 	public void setFirstTeamService(PlayerService firstTeamService) {
 		this.firstTeamService = firstTeamService;
@@ -136,29 +231,8 @@ public class GameViewController implements Initializable {
 		labelFirstTeam.setText(firstTeamService.findTeamName());
 		labelSecondTeam.setText(secondTeamService.findTeamName());
 
-		// Map<String, Score> scores = gameLogic.evaluateMatch();
-
-		/*
-		 * labelFirstTeamFirstSet.setText(String.valueOf(scores.get("FirstSet").
-		 * getFirstTeamScore()));
-		 * labelSecondTeamFirstSet.setText(String.valueOf(scores.get("FirstSet").
-		 * getSecondTeamScore()));
-		 * 
-		 * labelFirstTeamSecondSet.setText(String.valueOf(scores.get("SecondSet").
-		 * getFirstTeamScore()));
-		 * labelSecondTeamSecondSet.setText(String.valueOf(scores.get("SecondSet").
-		 * getSecondTeamScore()));
-		 * 
-		 * labelFirstTeamThirdSet.setText(String.valueOf(scores.get("ThirdSet").
-		 * getFirstTeamScore()));
-		 * labelSecondTeamThirdSet.setText(String.valueOf(scores.get("ThirdSet").
-		 * getSecondTeamScore()));
-		 * 
-		 * labelWinningTeam.setText("Time vencedor: " + gameLogic.getWinningTeam());
-		 */
-
 	}
-	
+
 	public void stop() {
 		timeline.stop();
 	}
@@ -168,47 +242,12 @@ public class GameViewController implements Initializable {
 		teamOne = firstTeamService.findAll();
 		teamTwo = secondTeamService.findAll();
 
-		Boolean tieBreak = false;
-		Integer serverCount = 15;
-		if (tieBreak == true) {
-			serverCount = 15;
-		}
-		serving = "first";
+		Integer serverCount = 25;
 
-		
-
+		setTimeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		
-		System.out.println("----- done -----");
 
-		/*
-		 * List<Player> teamOne = firstTeamService.findAll(); List<Player> teamTwo =
-		 * secondTeamService.findAll();
-		 * 
-		 * teamOne = gameLogic.organizeStartTeam(teamOne, true); teamTwo =
-		 * gameLogic.organizeStartTeam(teamTwo, false);
-		 * 
-		 * // Map<String, Score> scores = gameLogic.evaluateMatch();
-		 * 
-		 * Boolean tieBreak = false; Integer serverCount = 25; if (tieBreak == true) {
-		 * serverCount = 15; } score1 = 0; score2 = 0; String serving = "first"; while
-		 * ((score1 < serverCount && score2 < serverCount) || (Math.abs(score1 - score2)
-		 * < 2)) { String pointer = gameLogic.evaluateCurrentSquad(teamOne, teamTwo,
-		 * serving); if (pointer == "first") { score1 += 1; serving = "first"; teamTwo =
-		 * gameLogic.rotateTeam(teamTwo); } else { score2 += 1; serving = "second";
-		 * teamOne = gameLogic.rotateTeam(teamOne); } System.out.println("SCORE: ");
-		 * System.out.println("TeamOne: " + score1 + " -- -- TeamTwo: " + score2);
-		 * 
-		 * PauseTransition pauseTransition = new PauseTransition(Duration.seconds(1));
-		 * pauseTransition.setOnFinished(e -> {
-		 * labelFirstTeamFirstSet.setText(String.valueOf(score1));
-		 * labelSecondTeamFirstSet.setText(String.valueOf(score2));
-		 * 
-		 * }); pauseTransition.play();
-		 * 
-		 * }
-		 */
 	}
 
 }
