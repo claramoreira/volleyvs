@@ -243,9 +243,7 @@ public class GameViewController implements Initializable {
 
 		teamOne = firstTeamService.findAll();
 		teamTwo = secondTeamService.findAll();
-
-		Integer serverCount = 25;
-
+		
 		setTimeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
