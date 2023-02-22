@@ -17,14 +17,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 import model.entities.Player;
-import service.PlayerService;
+import model.services.PlayerService;
 import utils.GameLogic;
 
 public class GameViewController implements Initializable {
 
-	private PlayerService firstTeamService;
-
-	private PlayerService secondTeamService;
+	private PlayerService playerService;
 
 	private GameLogic gameLogic;
 
@@ -80,40 +78,40 @@ public class GameViewController implements Initializable {
 
 	@FXML
 	private Label labelFirstTeamFirstPosition;
-	
+
 	@FXML
 	private Label labelFirstTeamSecondPosition;
-	
+
 	@FXML
 	private Label labelFirstTeamThirdPosition;
-	
+
 	@FXML
 	private Label labelFirstTeamFourthPosition;
-	
+
 	@FXML
 	private Label labelFirstTeamFifthPosition;
-	
+
 	@FXML
 	private Label labelFirstTeamSixthPosition;
-	
+
 	@FXML
 	private Label labelSecondTeamFirstPosition;
-	
+
 	@FXML
 	private Label labelSecondTeamSecondPosition;
-	
+
 	@FXML
 	private Label labelSecondTeamThirdPosition;
-	
+
 	@FXML
 	private Label labelSecondTeamFourthPosition;
-	
+
 	@FXML
 	private Label labelSecondTeamFifthPosition;
-	
+
 	@FXML
 	private Label labelSecondTeamSixthPosition;
-	
+
 	@FXML
 	private Button buttonStartMatch;
 
@@ -124,6 +122,10 @@ public class GameViewController implements Initializable {
 
 	private String set = "first";
 
+	public void setPlayerService(PlayerService playerService) {
+		this.playerService = playerService;
+	}
+
 	private void setFirstTeamLabels(List<Player> team) {
 		labelFirstTeamFirstPosition.setText(team.get(0).getName());
 		labelFirstTeamSecondPosition.setText(team.get(1).getName());
@@ -132,7 +134,7 @@ public class GameViewController implements Initializable {
 		labelFirstTeamFifthPosition.setText(team.get(4).getName());
 		labelFirstTeamSixthPosition.setText(team.get(5).getName());
 	}
-	
+
 	private void setSecondTeamLabels(List<Player> team) {
 		labelSecondTeamFirstPosition.setText(team.get(0).getName());
 		labelSecondTeamSecondPosition.setText(team.get(1).getName());
@@ -141,8 +143,7 @@ public class GameViewController implements Initializable {
 		labelSecondTeamFifthPosition.setText(team.get(4).getName());
 		labelSecondTeamSixthPosition.setText(team.get(5).getName());
 	}
-	
-	
+
 	private void setTimeline() {
 		timeline = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent actionEvent) {
@@ -239,30 +240,6 @@ public class GameViewController implements Initializable {
 
 	}
 
-	/*
-	 * private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1),
-	 * new EventHandler<ActionEvent>() { public void handle(ActionEvent actionEvent)
-	 * { System.out.println("cycling"); String pointer =
-	 * gameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving); if (pointer ==
-	 * "first") { score1 += 1; serving = "first"; teamTwo =
-	 * gameLogic.rotateTeam(teamTwo); } else { score2 += 1; serving = "second";
-	 * teamOne = gameLogic.rotateTeam(teamOne); }
-	 * labelFirstTeamFirstSet.setText(String.valueOf(score1));
-	 * labelSecondTeamFirstSet.setText(String.valueOf(score2));
-	 * 
-	 * if (score1 > 14 || score2 > 14) { stop(); } }
-	 * 
-	 * }));
-	 */
-
-	public void setFirstTeamService(PlayerService firstTeamService) {
-		this.firstTeamService = firstTeamService;
-	}
-
-	public void setSecondTeamService(PlayerService secondTeamService) {
-		this.secondTeamService = secondTeamService;
-	}
-
 	public void setGameLogic(GameLogic gameLogic) {
 		this.gameLogic = gameLogic;
 	}
@@ -283,12 +260,8 @@ public class GameViewController implements Initializable {
 	}
 
 	public void updateGameView() {
-		if (firstTeamService == null || secondTeamService == null) {
-			throw new IllegalStateException("Service was null");
-		}
-
-		labelFirstTeam.setText(firstTeamService.findTeamName());
-		labelSecondTeam.setText(secondTeamService.findTeamName());
+		labelFirstTeam.setText("Minas");
+		labelSecondTeam.setText("Praia");
 
 	}
 
@@ -298,8 +271,12 @@ public class GameViewController implements Initializable {
 
 	public void playGame() throws InterruptedException {
 
-		teamOne = firstTeamService.findAll();
-		teamTwo = secondTeamService.findAll();
+		teamOne = playerService.findByTeam(1);
+		teamTwo = playerService.findByTeam(2);
+
+		System.out.println("team ONE");
+		System.out.println(teamOne);
+		System.out.println(teamOne.get(0).getAttackHeight());
 		
 		setTimeline();
 		timeline.setCycleCount(Animation.INDEFINITE);

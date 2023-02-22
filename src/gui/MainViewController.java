@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import service.FirstPlayerService;
+import model.services.PlayerService;
 import service.SecondPlayerService;
 import utils.GameLogic;
 
@@ -32,10 +32,9 @@ public class MainViewController implements Initializable {
 	@FXML
 	private void onMenuItemGameAction() {
 		loadView("/gui/GameView.fxml", (GameViewController controller) -> {
-			controller.setFirstTeamService(new FirstPlayerService());
-			controller.setSecondTeamService(new SecondPlayerService());
+			controller.setPlayerService(new PlayerService());
 			controller.setGameLogic(
-					new GameLogic((new FirstPlayerService()).findAll(), (new SecondPlayerService()).findAll()));
+					new GameLogic((new PlayerService()).findByTeam(1), (new PlayerService()).findByTeam(2)));
 			controller.updateGameView();
 		});
 	}

@@ -3,25 +3,15 @@ package model.services;
 import java.util.List;
 
 import model.dao.DaoFactory;
-import model.dao.DepartmentDao;
 import model.dao.PlayerDao;
-import model.entities.Department;
+import model.entities.Player;
 
 public class PlayerService {
-
 	
-	private PlayerDao dao = DaoFactory.createDepartmentDao();
+	private PlayerDao dao = DaoFactory.createPlayerDao();
 
-	public List<Department> findAll() {
-		return dao.findAll();
-	}
-
-	public void saveOrUpdate(Department obj) {
-		if (obj.getId() == null) {
-			dao.insert(obj);
-		} else {
-			dao.update(obj);
-		}
+	public List<Player> findByTeam(Integer id) {
+		return dao.findByTeam(id);
 	}
 	
 }

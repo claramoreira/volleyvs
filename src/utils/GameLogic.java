@@ -95,22 +95,22 @@ public class GameLogic {
 
 	public List<Player> organizeStartTeam(List<Player> team, Boolean serving) {
 
-		Player position2 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA1))
+		Player position2 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
 				.collect(Collectors.toList()).get(0);
-		Player position3 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL1))
+		Player position3 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
 				.collect(Collectors.toList()).get(0);
 		Player position4 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.OPOSTA))
 				.collect(Collectors.toList()).get(0);
 
 		Player position1 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LEVANTADORA))
 				.collect(Collectors.toList()).get(0);
-		Player position5 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA2))
-				.collect(Collectors.toList()).get(0);
+		Player position5 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.PONTEIRA))
+				.collect(Collectors.toList()).get(1);
 
 		Player position6;
 		if (serving == true) {
-			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL2))
-					.collect(Collectors.toList()).get(0);
+			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.CENTRAL))
+					.collect(Collectors.toList()).get(1);
 		} else {
 			position6 = team.stream().filter(a -> Objects.equals(a.getPosition(), Position.LIBERO))
 					.collect(Collectors.toList()).get(0);

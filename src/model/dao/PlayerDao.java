@@ -16,5 +16,5 @@ public interface PlayerDao {
 
 	List<Player> findAll();
 
-	List<Player> findByDepartment(Integer team);
+	List<Player> findByTeam(Integer team);
 }
