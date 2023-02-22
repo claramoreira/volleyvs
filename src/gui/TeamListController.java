@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Player;
-import service.PlayerService;
+import model.services.PlayerService; 
 
 public class TeamListController implements Initializable {
 
@@ -67,7 +67,7 @@ public class TeamListController implements Initializable {
 		if (service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		List<Player> list = service.findAll();
+		List<Player> list = service.findByTeam(1);
 		obsList = FXCollections.observableArrayList(list);
 
 		tableViewPlayer.setItems(obsList);
