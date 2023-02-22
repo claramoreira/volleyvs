@@ -24,8 +24,6 @@ public class GameViewController implements Initializable {
 
 	private PlayerService playerService;
 
-	private GameLogic gameLogic;
-
 	private Integer pointsPerSet = 25;
 
 	private List<String> setWinner = new ArrayList<>();
@@ -148,16 +146,16 @@ public class GameViewController implements Initializable {
 		timeline = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent actionEvent) {
 
-				String pointer = gameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving);
+				String pointer = GameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving);
 				if (pointer == "first") {
 					score1 += 1;
 					serving = "first";
-					teamTwo = gameLogic.rotateTeam(teamTwo);
+					teamTwo = GameLogic.rotateTeam(teamTwo);
 					setSecondTeamLabels(teamTwo);
 				} else {
 					score2 += 1;
 					serving = "second";
-					teamOne = gameLogic.rotateTeam(teamOne);
+					teamOne = GameLogic.rotateTeam(teamOne);
 					setFirstTeamLabels(teamOne);
 				}
 
@@ -240,13 +238,9 @@ public class GameViewController implements Initializable {
 
 	}
 
-	public void setGameLogic(GameLogic gameLogic) {
-		this.gameLogic = gameLogic;
-	}
 
 	public void onButtonClickAction() throws InterruptedException {
 		playGame();
-		System.out.println("back to playgame");
 	}
 
 	@Override
@@ -274,10 +268,6 @@ public class GameViewController implements Initializable {
 		teamOne = playerService.findByTeam(1);
 		teamTwo = playerService.findByTeam(2);
 
-		System.out.println("team ONE");
-		System.out.println(teamOne);
-		System.out.println(teamOne.get(0).getAttackHeight());
-		
 		setTimeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
