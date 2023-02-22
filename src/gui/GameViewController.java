@@ -2,12 +2,9 @@ package gui;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
-import java.util.function.Function;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -105,7 +102,7 @@ public class GameViewController implements Initializable {
 					serving = "second";
 					teamOne = gameLogic.rotateTeam(teamOne);
 				}
-				
+
 				switch (set) {
 				case "first": {
 					labelFirstTeamFirstSet.setText(String.valueOf(score1));
@@ -136,13 +133,17 @@ public class GameViewController implements Initializable {
 					throw new IllegalArgumentException("Unexpected value: " + set);
 				}
 
-				
 				if (!((score1 < pointsPerSet && score2 < pointsPerSet) || (Math.abs(score1 - score2) < 2))) {
 					setWinner.add((score1 > score2) ? "first" : "second");
-					
+
+					if (Collections.frequency(setWinner, "first") == 3
+							|| Collections.frequency(setWinner, "second") == 3) {
+						set = "end";
+					}
+
 					score1 = 0;
 					score2 = 0;
-					
+
 					switch (set) {
 					case "first": {
 						set = "second";
@@ -163,6 +164,9 @@ public class GameViewController implements Initializable {
 					}
 					case "fifth": {
 						set = "end";
+						break;
+					}
+					case "end": {
 						System.out.println("GameOver!");
 						stop();
 						break;
@@ -170,10 +174,8 @@ public class GameViewController implements Initializable {
 					default:
 						throw new IllegalArgumentException("Unexpected value: " + set);
 					}
-					
-					
-				}
 
+				}
 			}
 
 		}));
