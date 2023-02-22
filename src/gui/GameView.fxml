@@ -92,12 +92,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Label" />
-            <Label text="Label" GridPane.columnIndex="1" />
-            <Label text="Label" GridPane.columnIndex="2" />
-            <Label text="Label" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelFirstTeamFourthPosition" text="Label" />
+            <Label fx:id="labelFirstTeamThirdPosition" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="labelFirstTeamSecondPosition" text="Label" GridPane.columnIndex="2" />
+            <Label fx:id="labelFirstTeamFifthPosition" text="Label" GridPane.rowIndex="1" />
+            <Label fx:id="labelFirstTeamSixthPosition" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelFirstTeamFirstPosition" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Label text="Time 2:">
@@ -119,12 +119,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Label" />
-            <Label text="Label" GridPane.columnIndex="1" />
-            <Label text="Label" GridPane.columnIndex="2" />
-            <Label text="Label" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelSecondTeamFourthPosition" text="Label" />
+            <Label fx:id="labelSecondTeamThirdPosition" text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="labelSecondTeamSecondPosition" text="Label" GridPane.columnIndex="2" />
+            <Label fx:id="labelSecondTeamFifthPosition" text="Label" GridPane.rowIndex="1" />
+            <Label fx:id="labelSecondTeamSixthPosition" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelSecondTeamFirstPosition" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

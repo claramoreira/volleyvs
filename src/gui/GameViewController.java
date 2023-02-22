@@ -79,6 +79,42 @@ public class GameViewController implements Initializable {
 	private Label labelSecondTeamFifthSet;
 
 	@FXML
+	private Label labelFirstTeamFirstPosition;
+	
+	@FXML
+	private Label labelFirstTeamSecondPosition;
+	
+	@FXML
+	private Label labelFirstTeamThirdPosition;
+	
+	@FXML
+	private Label labelFirstTeamFourthPosition;
+	
+	@FXML
+	private Label labelFirstTeamFifthPosition;
+	
+	@FXML
+	private Label labelFirstTeamSixthPosition;
+	
+	@FXML
+	private Label labelSecondTeamFirstPosition;
+	
+	@FXML
+	private Label labelSecondTeamSecondPosition;
+	
+	@FXML
+	private Label labelSecondTeamThirdPosition;
+	
+	@FXML
+	private Label labelSecondTeamFourthPosition;
+	
+	@FXML
+	private Label labelSecondTeamFifthPosition;
+	
+	@FXML
+	private Label labelSecondTeamSixthPosition;
+	
+	@FXML
 	private Button buttonStartMatch;
 
 	@FXML
@@ -88,8 +124,27 @@ public class GameViewController implements Initializable {
 
 	private String set = "first";
 
+	private void setFirstTeamLabels(List<Player> team) {
+		labelFirstTeamFirstPosition.setText(team.get(0).getName());
+		labelFirstTeamSecondPosition.setText(team.get(1).getName());
+		labelFirstTeamThirdPosition.setText(team.get(2).getName());
+		labelFirstTeamFourthPosition.setText(team.get(3).getName());
+		labelFirstTeamFifthPosition.setText(team.get(4).getName());
+		labelFirstTeamSixthPosition.setText(team.get(5).getName());
+	}
+	
+	private void setSecondTeamLabels(List<Player> team) {
+		labelSecondTeamFirstPosition.setText(team.get(0).getName());
+		labelSecondTeamSecondPosition.setText(team.get(1).getName());
+		labelSecondTeamThirdPosition.setText(team.get(2).getName());
+		labelSecondTeamFourthPosition.setText(team.get(3).getName());
+		labelSecondTeamFifthPosition.setText(team.get(4).getName());
+		labelSecondTeamSixthPosition.setText(team.get(5).getName());
+	}
+	
+	
 	private void setTimeline() {
-		timeline = new Timeline(new KeyFrame(Duration.millis(50), new EventHandler<ActionEvent>() {
+		timeline = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent actionEvent) {
 
 				String pointer = gameLogic.evaluateCurrentSquad(teamOne, teamTwo, serving);
@@ -97,10 +152,12 @@ public class GameViewController implements Initializable {
 					score1 += 1;
 					serving = "first";
 					teamTwo = gameLogic.rotateTeam(teamTwo);
+					setSecondTeamLabels(teamTwo);
 				} else {
 					score2 += 1;
 					serving = "second";
 					teamOne = gameLogic.rotateTeam(teamOne);
+					setFirstTeamLabels(teamOne);
 				}
 
 				switch (set) {
