@@ -1,6 +1,5 @@
 package gui;
 
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -25,7 +24,7 @@ import model.entities.Player;
 import model.services.PlayerService;
 import utils.GameLogic;
 
-public class GameViewController implements Initializable  {
+public class GameViewController implements Initializable {
 
 	private PlayerService playerService;
 
@@ -45,10 +44,10 @@ public class GameViewController implements Initializable  {
 
 	@FXML
 	private ImageView firstTeamImage;
-	
+
 	@FXML
 	private ImageView secondTeamImage;
-	
+
 	@FXML
 	private Label labelFirstTeam;
 
@@ -249,7 +248,6 @@ public class GameViewController implements Initializable  {
 
 	}
 
-
 	public void onButtonClickAction() throws InterruptedException {
 		playGame();
 	}
@@ -261,15 +259,10 @@ public class GameViewController implements Initializable  {
 	}
 
 	private void initializeNodes() {
-		try {
-			Image firstImage = new Image(new FileInputStream("C:\\temp\\minas.png"));
-			Image secondImage = new Image(new FileInputStream("C:\\temp\\praia.png"));
-			firstTeamImage.setImage(firstImage);
-			secondTeamImage.setImage(secondImage);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Image firstImage = new Image("file:resources/images/minas.png");
+		Image secondImage = new Image("file:resources/images/praia.png");
+		firstTeamImage.setImage(firstImage);
+		secondTeamImage.setImage(secondImage);
 	}
 
 	public void updateGameView() {
