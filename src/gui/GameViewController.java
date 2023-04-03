@@ -1,5 +1,8 @@
 package gui;
 
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,12 +18,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import model.entities.Player;
 import model.services.PlayerService;
 import utils.GameLogic;
 
-public class GameViewController implements Initializable {
+public class GameViewController implements Initializable  {
 
 	private PlayerService playerService;
 
@@ -38,6 +43,12 @@ public class GameViewController implements Initializable {
 
 	private List<Player> teamTwo;
 
+	@FXML
+	private ImageView firstTeamImage;
+	
+	@FXML
+	private ImageView secondTeamImage;
+	
 	@FXML
 	private Label labelFirstTeam;
 
@@ -250,7 +261,15 @@ public class GameViewController implements Initializable {
 	}
 
 	private void initializeNodes() {
-
+		try {
+			Image firstImage = new Image(new FileInputStream("C:\\temp\\minas.png"));
+			Image secondImage = new Image(new FileInputStream("C:\\temp\\praia.png"));
+			firstTeamImage.setImage(firstImage);
+			secondTeamImage.setImage(secondImage);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void updateGameView() {
