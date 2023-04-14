@@ -127,3 +127,60 @@ VALUES (13, "Thaisa", 89, 2, 2, 1.96, 3.20, 3.15, 4.51, 48.31,
 INSERT INTO VOLLEYVS.PLAYERS
 VALUES (14, "Kisy", 81, 3, 4, 1.91, 3.03, 2.90, 2.41, 41.32, 11.1,
 				3.9, 2.3, 10.15, 0.92, 2.15, 2);
+
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (15, "Tiffany", 93, 2, 4, 1.93, 3.47, 3.30, 11.50, 49.07, 25.00,
+				10.00, 1.18, 16.73, 1.27, 2.5, 1);
+
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (16, "Druscyla", 80, 4, 3, 1.84, 2.90, 2.80, 0.99, 42.82, 8.11,
+				10.1, 0.75, 15.32, 1.01, 4.97, 3);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (17, "Glayce", 77, 4, 3, 1.81, 3.10, 2.92, 4.20, 39.93,
+				9.1, 3.9, 3.8, 10.84, 1.12, 6.23, 3);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (18, "Key Alves", 78, 5, 5, 1.66, 2.62, 2.38, 1.80, 0.0,
+				0.01, 10.0, 0.0, 0.02, 0.0, 24.0, 3);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (19, "Giovana", 83, 5, 1, 1.81, 2.90, 2.66, 1.80,
+				10.92, 4.91, 8.44, 1.33, 1.4, 1.21, 13.32, 3);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (20, "Fabiana Claudino", 90, 4, 2, 1.83, 3.16, 3.09, 3.22, 34.92,
+				25.1, 6.9, 3.5, 4.7, 7.88, 2.21, 3);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (21, "Adenizia Silva", 89, 2, 2, 1.96, 3.20, 3.15, 4.51, 48.31,
+				20.74, 1.15, 1.95, 17.4, 4.95, 1.82, 3);
+				
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (22, "Sabrina Machado", 93, 2, 4, 1.93, 3.47, 3.30, 11.50, 49.07, 25.00,
+				10.00, 1.18, 16.73, 1.27, 2.5, 4);
+
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (23, "Michelle Pavão", 80, 4, 3, 1.84, 2.90, 2.80, 0.99, 42.82, 8.11,
+				10.1, 0.75, 15.32, 1.01, 4.97, 4);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (24, "Roni", 77, 4, 3, 1.81, 3.10, 2.92, 4.20, 39.93,
+				9.1, 3.9, 3.8, 10.84, 1.12, 6.23, 4);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (25, "Laís Vasques", 78, 5, 5, 1.66, 2.62, 2.38, 1.80, 0.0,
+				0.01, 10.0, 0.0, 0.02, 0.0, 24.0, 4);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (26, "Brie King", 83, 5, 1, 1.81, 2.90, 2.66, 1.80,
+				10.92, 4.91, 8.44, 1.33, 1.4, 1.21, 13.32, 4);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (27, "Juciely Barreto", 90, 4, 2, 1.83, 3.16, 3.09, 3.22, 34.92,
+				25.1, 6.9, 3.5, 4.7, 7.88, 2.21, 4);
+                
+INSERT INTO VOLLEYVS.PLAYERS
+VALUES (28, "Julliana Gandra", 89, 2, 2, 1.96, 3.20, 3.15, 4.51, 48.31,
+				20.74, 1.15, 1.95, 17.4, 4.95, 1.82, 4);
+                
