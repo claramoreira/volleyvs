@@ -6,7 +6,7 @@ CREATE TABLE VOLLEYVS.POSITIONS (
 	`name` VARCHAR(100) NOT NULL,
 	PRIMARY KEY (`id`)
     );
-
+    
 
 INSERT INTO VOLLEYVS.POSITIONS 
 VALUES (1, 'LEVANTADORA');
@@ -48,6 +48,26 @@ VALUES (5, 'EXCELENTE');
 INSERT INTO VOLLEYVS.CONDITIONS 
 VALUES (6, 'INDISPONÍVEL');
 
+CREATE TABLE VOLLEYVS.TEAMS (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(100) NOT NULL,
+    `stadium` VARCHAR(100),
+    `logo` VARCHAR(100),
+	PRIMARY KEY (`id`)
+);
+
+
+INSERT INTO VOLLEYVS.TEAMS
+VALUES (1, "Minas Tenis Clube", "Minas I", "minas.png");
+
+INSERT INTO VOLLEYVS.TEAMS
+VALUES (2, "Praia Clube", "Ginásio de Esportes do Alvorada", "praia.png");
+
+INSERT INTO VOLLEYVS.TEAMS
+VALUES (3, "Osasco Voleibol Clube", "Ginásio Esportivo José Liberatti", "osasco.png");
+
+INSERT INTO VOLLEYVS.TEAMS
+VALUES (4, "Sesc-RJ/Flamengo", "Ginásio Tijuca Tenis Clube", "sesc-flamengo.png");
 
 CREATE TABLE `volleyvs`.`players` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
@@ -183,4 +203,7 @@ VALUES (27, "Juciely Barreto", 90, 4, 2, 1.83, 3.16, 3.09, 3.22, 34.92,
 INSERT INTO VOLLEYVS.PLAYERS
 VALUES (28, "Julliana Gandra", 89, 2, 2, 1.96, 3.20, 3.15, 4.51, 48.31,
 				20.74, 1.15, 1.95, 17.4, 4.95, 1.82, 4);
+				
+				
+
                 
