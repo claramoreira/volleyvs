@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import model.services.PlayerService;
 
@@ -30,6 +32,9 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	private Button buttonStartNextMatch;
+	
+	@FXML
+	private ImageView imageViewTeamLogo;
 
 	@FXML
 	private void onMenuItemGameAction() {
@@ -62,6 +67,8 @@ public class MainViewController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Image logo = new Image("file:resources/images/praia.png");
+		imageViewTeamLogo.setImage(logo);
 		System.out.println("Loading MainView");
 	}
 
