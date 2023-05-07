@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -26,6 +27,9 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private MenuItem menuItemAbout;
+	
+	@FXML
+	private Button buttonStartNextMatch;
 
 	@FXML
 	private void onMenuItemGameAction() {
@@ -40,6 +44,14 @@ public class MainViewController implements Initializable {
 		loadView("/gui/TeamList.fxml", (TeamListController controller) -> {
 			controller.setPlayerService(new PlayerService());
 			controller.updateTableView();
+		});
+	}
+	
+	@FXML
+	private void onButtonStartNextMatchAction() {
+		loadView("/gui/GameView.fxml", (GameViewController controller) -> {
+			controller.setPlayerService(new PlayerService());
+			controller.updateGameView();
 		});
 	}
 
